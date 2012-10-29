@@ -1,4 +1,4 @@
-package br.ime.usp.recommender;
+package br.ime.usp.recommender.controller;
 
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Resource;

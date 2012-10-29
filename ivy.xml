@@ -1,5 +1,5 @@
 <ivy-module version="2.0">
-	<info organisation="caelum" module="MetricMiner" />
+	<info organisation="ime-usp" module="recommender" />
 
 	<configurations>
 		<conf name="default" description="dependencies used for compile" />
