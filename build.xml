@@ -1,0 +1,60 @@
+<project name="Metric Miner" default="war" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+
+	<property file="build.properties" />
+
+	<path id="libs.classpath" path=".">
+		<fileset dir="${libs.dir}">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<path id="compile.classpath" path=".">
+		<path refid="libs.classpath" />
+	</path>
+
+	<target name="prepare">
+		<mkdir dir="${tmp.dir}" />
+		<mkdir dir="${tmp.webinf.dir}" />
+		<mkdir dir="${tmp.classes.dir}" />
+		<mkdir dir="${tmp.test-classes.dir}" />
+	</target>
+
+	<target name="clean">
+		<delete dir="${tmp.dir}" />
+		<delete>
+	    	<fileset dir="${libs.dir}" includes="*.jar"/>
+		</delete>
+	</target>
+	
+	<!-- resolve dependencies -->
+	<target name="resolve" description="--> retrieve dependencies with ivy">
+		<path id="ivy.lib.path">
+			<pathelement location="${ivy.jar.file}" />
+		</path>
+		<taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path" />
+
+		<delete dir="${libs.dir}" includes="**/*.*" />
+		<ivy:settings file="${ivy.file}" />
+		<ivy:retrieve pattern="${webapp.dir}/WEB-INF/lib/[artifact](-[classifier]).[ext]" sync="true" />
+	</target>
+
+	<target name="compile" depends="prepare">
+		<javac destdir="${tmp.classes.dir}" srcdir="${src.dir}" classpathref="compile.classpath" debug="true" encoding="UTF-8" />
+	</target>
+
+	<target name="war" depends="compile">
+		<delete file="${artifacts.dir}/${war.file}" />
+		<copy todir="${tmp.classes.dir}">
+			<fileset dir="${resources.dir}" />
+		</copy>
+		<move file="${tmp.classes.dir}/log4j.server.xml" tofile="${tmp.classes.dir}/log4j.xml"/>
+
+		<war destfile="${artifacts.dir}/${war.file}" webxml="${webapp.dir}/WEB-INF/web.xml" compress="true">
+			<fileset dir="${webapp.dir}">
+				<exclude name="WEB-INF/web.xml" />
+			</fileset>
+			<classes dir="${tmp.classes.dir}" />
+		</war>
+	</target>
+
+</project>

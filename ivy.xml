@@ -1,0 +1,39 @@
+<ivy-module version="2.0">
+	<info organisation="caelum" module="MetricMiner" />
+
+	<configurations>
+		<conf name="default" description="dependencies used for compile" />
+		<conf name="test" description="dependencies used for tests" visibility="public" />
+	</configurations>
+
+	<dependencies>
+		<!-- Hibernate and other stuff -->
+		<dependency org="org.hibernate" name="hibernate-core" rev="3.6.10.Final"/>
+		<dependency org="org.hibernate.javax.persistence" name="hibernate-jpa-2.0-api" rev="1.0.0.Final" conf="default" />
+		<dependency org="org.hibernate" name="hibernate-c3p0" rev="3.6.10.Final" conf="default" />
+		<dependency org="javax.transaction" name="jta" rev="1.1"/>
+		<dependency org="mysql" name="mysql-connector-java" rev="5.1.18"/>
+		<dependency org="c3p0" name="c3p0" rev="0.9.1" conf="default" />
+		<dependency org="org.hibernate" name="hibernate-validator" rev="4.3.0.Final"/>
+		<dependency org="net.sf.ehcache" name="ehcache-core" rev="2.5.3"/>
+		
+
+		<!-- VRaptor dependencies -->
+		<dependency org="br.com.caelum" name="vraptor" rev="3.4.1" conf="default" />
+        <dependency org="org.slf4j" name="slf4j-api" rev="1.6.1"/>
+        <dependency org="log4j" name="log4j" rev="1.2.16"/>
+		<dependency org="org.slf4j" name="slf4j-log4j12" rev="1.6.1"/>
+		<dependency org="org.mortbay.jetty" name="servlet-api-2.5" rev="6.1H.14.1"/>
+		<dependency org="org.glassfish.web" name="jstl-impl" rev="1.2"/>
+		<dependency org="org.mortbay.jetty" name="servlet-api" rev="3.0.pre4"/>
+		<dependency org="javassist" name="javassist" rev="3.12.1.GA"/>
+		<dependency org="commons-io" name="commons-io" rev="2.0.1"/>
+		<dependency org="com.google.guava" name="guava" rev="r09"/>
+
+		<!-- Test dependencies -->
+		<dependency org="junit" name="junit" rev="4.8.2" conf="test->default" />
+		<dependency org="org.mockito" name="mockito-all" rev="1.8.5" conf="test->default" />
+		<dependency org="org.hsqldb" name="hsqldb" rev="2.2.8" conf="test->default" />
+            
+	</dependencies>
+</ivy-module>
