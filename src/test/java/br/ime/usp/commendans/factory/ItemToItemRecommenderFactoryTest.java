@@ -8,8 +8,10 @@ import java.util.List;
 
 import org.junit.Test;
 
-import br.ime.usp.commendans.ItemToItemRecommender;
-import br.ime.usp.commendans.factory.ItemToItemsAssociation.Tuple;
+import br.ime.usp.commendans.itemtoitem.ItemToItemRecommender;
+import br.ime.usp.commendans.itemtoitem.ItemToItemRecommenderFactory;
+import br.ime.usp.commendans.itemtoitem.ItemToItemsAssociation;
+import br.ime.usp.commendans.itemtoitem.ItemToItemsAssociation.Tuple;
 import br.ime.usp.commendans.model.Item;
 import br.ime.usp.commendans.model.User;
 
@@ -22,10 +24,10 @@ public class ItemToItemRecommenderFactoryTest {
         Item item2 = new Item(2l);
         Item item3 = new Item(3l);
         Item item4 = new Item(4l);
-        User user1 = new User(Arrays.asList(item1, item3));
-        User user2 = new User(Arrays.asList(item2, item4));
-        User user3 = new User(Arrays.asList(item1, item2, item3));
-        User user4 = new User(Arrays.asList(item3, item4));
+        User user1 = new User(Arrays.asList(item1, item3), 1l);
+        User user2 = new User(Arrays.asList(item2, item4), 2l);
+        User user3 = new User(Arrays.asList(item1, item2, item3), 3l);
+        User user4 = new User(Arrays.asList(item3, item4), 4l);
         factory.addUser(user1);
         factory.addUser(user2);
         factory.addUser(user3);
