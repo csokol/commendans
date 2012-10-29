@@ -1,4 +1,4 @@
-package br.ime.usp.recommender;
+package br.ime.usp.commendans;
 
 public class ItemToItemRecommender {
 

@@ -1,12 +1,13 @@
-package br.ime.usp.recommender.factory;
+package br.ime.usp.commendans.factory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 
-import br.ime.usp.recommender.model.Item;
-import br.ime.usp.recommender.model.User;
+import br.ime.usp.commendans.factory.ItemToItemRecommenderFactory;
+import br.ime.usp.commendans.model.Item;
+import br.ime.usp.commendans.model.User;
 
 public class ItemToItemRecommenderFactoryTest {
 

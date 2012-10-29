@@ -1,6 +1,6 @@
-package br.ime.usp.recommender.factory;
+package br.ime.usp.commendans.factory;
 
-import br.ime.usp.recommender.model.User;
+import br.ime.usp.commendans.model.User;
 
 public class ItemToItemRecommenderFactory {
 

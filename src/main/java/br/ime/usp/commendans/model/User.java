@@ -1,4 +1,4 @@
-package br.ime.usp.recommender.model;
+package br.ime.usp.commendans.model;
 
 import java.util.List;
 
