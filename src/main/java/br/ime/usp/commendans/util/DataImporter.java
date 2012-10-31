@@ -11,8 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.StatelessSession;
 import org.hibernate.cfg.Configuration;
 
 import br.ime.usp.commendans.model.Item;
@@ -20,17 +20,17 @@ import br.ime.usp.commendans.model.User;
 
 public class DataImporter {
     
-    private final StatelessSession session;
+    private final Session session;
     private static Logger logger;
 
-    public DataImporter(StatelessSession session) {
+    public DataImporter(Session session) {
         this.session = session;
     }
 
     public static void main(String[] args) throws IOException {
         logger = Logger.getLogger(DataImporter.class);
         SessionFactory sf = new Configuration().configure("/hibernate.cfg.xml").buildSessionFactory();
-        StatelessSession session = sf.openStatelessSession();
+        Session session = sf.openSession();
         DataImporter dataImporter = new DataImporter(session);
         dataImporter.importData("/orders.csv");
     }
@@ -64,12 +64,13 @@ public class DataImporter {
         logger.info("persisting");
         session.getTransaction().begin();
         for (Item item : items.values()) {
-            session.insert(item);
+            session.save(item);
         }
         
         Collection<User> allUsers = users.values();
         for (User user : allUsers) {
-            session.insert(user);
+            System.out.println(user.itemsBought());
+            session.save(user);
         }
         session.getTransaction().commit();
         logger.info("finished persisting");
