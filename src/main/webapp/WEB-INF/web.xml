@@ -5,11 +5,4 @@
 	id="WebApp_ID" version="3.0">
 	<display-name>commendans</display-name>
 	
-	<context-param>
-		<param-name>br.com.caelum.vraptor.packages</param-name>
-		<param-value>
-	        br.com.caelum.vraptor.util.hibernate
-        </param-value>
-	</context-param>
-	
 </web-app>
