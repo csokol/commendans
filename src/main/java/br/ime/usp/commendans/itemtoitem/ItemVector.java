@@ -25,10 +25,6 @@ public class ItemVector {
         return Collections.unmodifiableList(tuples);
     }
     
-    private void remove(Tuple t) {
-        tuples.remove(t);
-    }
-
     public ItemVector merge(ItemVector other) {
         Set<Tuple> tuples = new HashSet<Tuple>();
         Set<Tuple> tuplesToRemove = new HashSet<Tuple>();
