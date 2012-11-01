@@ -6,9 +6,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import br.com.caelum.vraptor.ioc.Component;
 import br.ime.usp.commendans.model.Item;
 import br.ime.usp.commendans.model.User;
 
+@Component
 public class ItemToItemRecommenderFactory {
 
     private Map<Item, List<User>> usersByItemBought;

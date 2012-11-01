@@ -11,14 +11,14 @@ import org.junit.Test;
 import br.ime.usp.commendans.itemtoitem.ItemToItemRecommender;
 import br.ime.usp.commendans.itemtoitem.ItemToItemRecommenderFactory;
 import br.ime.usp.commendans.itemtoitem.ItemToItemsAssociation;
-import br.ime.usp.commendans.itemtoitem.ItemToItemsAssociation.Tuple;
+import br.ime.usp.commendans.itemtoitem.Tuple;
 import br.ime.usp.commendans.model.Item;
 import br.ime.usp.commendans.model.User;
 
 public class ItemToItemRecommenderFactoryTest {
 
     @Test
-    public void test() {
+    public void shouldBuildRecommender() {
         ItemToItemRecommenderFactory factory = new ItemToItemRecommenderFactory();
         Item item1 = new Item(1l);
         Item item2 = new Item(2l);
@@ -36,7 +36,7 @@ public class ItemToItemRecommenderFactoryTest {
         ItemToItemRecommender recommender = factory.build();
         HashMap<Item, ItemToItemsAssociation> associations = factory.getAssociations();
         
-        List<Tuple> recommendedItems = recommender.recommendendItemsFor(item1);
+        List<Tuple> recommendedItems = recommender.recommendendItemsFor(item1).getTuples();
         ItemToItemsAssociation association = associations.get(item1);
         assertEquals(0.0, association.associationValue(item1), 0.001);
         assertEquals(1.0, association.associationValue(item2), 0.001);
@@ -49,7 +49,7 @@ public class ItemToItemRecommenderFactoryTest {
         assertEquals(item2, recommendedItems.get(1).getItem());
         assertEquals(1.0, recommendedItems.get(1).getValue().doubleValue(), 0.001);
         
-        recommendedItems = recommender.recommendendItemsFor(item2);
+        recommendedItems = recommender.recommendendItemsFor(item2).getTuples();
         association = associations.get(item2);
         assertEquals(1.0, association.associationValue(item1), 0.001);
         assertEquals(0.0, association.associationValue(item2), 0.001);
@@ -61,7 +61,7 @@ public class ItemToItemRecommenderFactoryTest {
         assertEquals(1.0, recommendedItems.get(1).getValue().doubleValue(), 0.001);
         assertEquals(1.0, recommendedItems.get(2).getValue().doubleValue(), 0.001);
         
-        recommendedItems = recommender.recommendendItemsFor(item3);
+        recommendedItems = recommender.recommendendItemsFor(item3).getTuples();
         association = associations.get(item3);
         assertEquals(2.0, association.associationValue(item1), 0.001);
         assertEquals(1.0, association.associationValue(item2), 0.001);

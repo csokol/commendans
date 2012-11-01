@@ -56,29 +56,4 @@ public class ItemToItemsAssociation {
         return tuples;
     }
 
-    
-    public class Tuple implements Comparable<Tuple> {
-        private Item item;
-        private Double value;
-
-        public Tuple(Item item, Double value) {
-            this.item = item;
-            this.value = value;
-        }
-
-        public Item getItem() {
-            return item;
-        }
-
-        public Double getValue() {
-            return value;
-        }
-
-        @Override
-        public int compareTo(Tuple o) {
-            return (int) (value - o.getValue());
-        }
-
-    }
-
 }

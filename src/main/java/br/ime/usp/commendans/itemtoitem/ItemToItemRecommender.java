@@ -1,38 +1,46 @@
 package br.ime.usp.commendans.itemtoitem;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import br.ime.usp.commendans.Recommender;
-import br.ime.usp.commendans.itemtoitem.ItemToItemsAssociation.Tuple;
 import br.ime.usp.commendans.model.Item;
 
 public class ItemToItemRecommender implements Recommender {
 
-    private final Map<Item, List<Tuple>> associations;
+    private final Map<Item, ItemVector> associations;
 
     public ItemToItemRecommender(
             HashMap<Item, ItemToItemsAssociation> associations) {
         this.associations = parse(associations);
     }
 
-    private Map<Item, List<Tuple>> parse(HashMap<Item, ItemToItemsAssociation> associations) {
-        HashMap<Item, List<Tuple>> map = new HashMap<Item, List<Tuple>>();
+    private Map<Item, ItemVector> parse(HashMap<Item, ItemToItemsAssociation> associations) {
+        HashMap<Item, ItemVector> map = new HashMap<Item, ItemVector>();
         Set<Item> items = associations.keySet();
         for (Item item : items) {
             ItemToItemsAssociation association = associations.get(item);
             List<Tuple> tuples = association.toTupleList();
-            map.put(item, tuples);
+            map.put(item, new ItemVector(tuples));
         }
         return map;
     }
 
     @Override
-    public List<Tuple> recommendendItemsFor(Item item) {
-        List<Tuple> tuples = associations.get(item);
-        return tuples;
+    public ItemVector recommendendItemsFor(Item item) {
+        return associations.get(item);
+    }
+
+    public ItemVector recommendendItemsFor(List<Item> items) {
+        ItemVector vector = new ItemVector(new ArrayList<Tuple>());
+        for (Item item : items) {
+            ItemVector other = recommendendItemsFor(item);
+            vector = vector.merge(other);
+        }
+        return vector;
     }
 
 }
