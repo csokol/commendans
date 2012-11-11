@@ -31,17 +31,17 @@ public class ItemToItemController {
     public void recommend(Long itemId) {
         Item item = itemDao.find(itemId);
         ItemVector recommendend = itemToItem.recommendendItemsFor(item);
-        serializedResult(recommendend.getTuples());
+        serializeResult(recommendend.getTuples());
     }
     
     @Get("/recommend/items/")
     public void recommend(List<Long> itemsIds) {
         List<Item> items = itemDao.find(itemsIds);
         List<Tuple> recommendend = itemToItem.recommendendItemsFor(items).getTuples();
-        serializedResult(recommendend);
+        serializeResult(recommendend);
     }
 
-    private void serializedResult(List<Tuple> recommendend) {
+    private void serializeResult(List<Tuple> recommendend) {
         result.use(Results.http())
             .addHeader("content-type", "application/json")
             .body(serializer.toJson(recommendend));
