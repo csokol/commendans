@@ -1,7 +1,11 @@
 package br.ime.usp.commendans.components;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.servlet.ServletContext;
 
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
@@ -16,8 +20,10 @@ public class SessionFactoryCreator implements ComponentFactory<SessionFactory> {
 
     private SessionFactory sessionFactory;
     private static Logger LOG = Logger.getLogger(SessionFactoryCreator.class);
+    private String env;
     
-    public SessionFactoryCreator() {
+    public SessionFactoryCreator(ServletContext context) {
+        env = context.getInitParameter("environment");
     }
 
     @Override
@@ -32,15 +38,29 @@ public class SessionFactoryCreator implements ComponentFactory<SessionFactory> {
     
     @PostConstruct
     public void create() {
-        //if (env.getName().equals("heroku")) {
-        if (true) {
+        if (env.equals("heroku")) {
+            
+            URI dbUri;
+            try {
+                dbUri = new URI(System.getenv("DATABASE_URL"));
+            } catch (URISyntaxException e) {
+                throw new RuntimeException(e);
+            }
+
+            String username = dbUri.getUserInfo().split(":")[0];
+            String password = dbUri.getUserInfo().split(":")[1];
+            String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + "/" + dbUri.getPort();
+            
             LOG.info("using heroku specific confs");
+            LOG.info("username: " + username);
+            LOG.info("password: " + password);
+            LOG.info("dbUrl: " + dbUrl);
             Configuration configuration = new Configuration().configure("/hibernate-heroku.cfg.xml");
-            configuration.setProperty("hibernate.connection.url", "jdbc:mysql://localhost/commendans");
+            configuration.setProperty("hibernate.connection.url", dbUrl);
             configuration.setProperty("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
-            configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
-            configuration.setProperty("hibernate.connection.username", "root");
-            configuration.setProperty("hibernate.connection.password", "");
+            configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+            configuration.setProperty("hibernate.connection.username", username);
+            configuration.setProperty("hibernate.connection.password", password);
             
             sessionFactory = configuration.buildSessionFactory();
         } else {

@@ -1,4 +1,4 @@
-<project name="Metric Miner" default="war" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+<project name="Metric Miner" default="resolve" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
 
 	<property file="build.properties" />
 
@@ -20,10 +20,7 @@
 	</target>
 
 	<target name="clean">
-		<delete dir="${tmp.dir}" />
-		<delete>
-	    	<fileset dir="${libs.dir}" includes="*.jar"/>
-		</delete>
+		<delete dir="${tmp.root}" />
 	</target>
 	
 	<!-- resolve dependencies -->
@@ -42,19 +39,21 @@
 		<javac destdir="${tmp.classes.dir}" srcdir="${src.dir}" classpathref="compile.classpath" debug="true" encoding="UTF-8" />
 	</target>
 
-	<target name="war" depends="compile">
+	<target name="heroku-war" depends="compile">
 		<delete file="${artifacts.dir}/${war.file}" />
 		<copy todir="${tmp.classes.dir}">
 			<fileset dir="${resources.dir}" />
 		</copy>
-		<move file="${tmp.classes.dir}/log4j.server.xml" tofile="${tmp.classes.dir}/log4j.xml"/>
+		
+		<copy file="${webapp.dir}/WEB-INF/web.xml" tofile="${webapp.dir}/WEB-INF/web-dev.xml"/>
+		
+		<copy file="${webapp.dir}/WEB-INF/web-heroku.xml" tofile="${webapp.dir}/WEB-INF/web.xml"/>
 
 		<war destfile="${artifacts.dir}/${war.file}" webxml="${webapp.dir}/WEB-INF/web.xml" compress="true">
-			<fileset dir="${webapp.dir}">
-				<exclude name="WEB-INF/web.xml" />
-			</fileset>
 			<classes dir="${tmp.classes.dir}" />
 		</war>
+		
+		<copy file="${webapp.dir}/WEB-INF/web-dev.xml" tofile="${webapp.dir}/WEB-INF/web.xml"/>
 	</target>
 
 </project>

@@ -21,26 +21,25 @@ import br.ime.usp.commendans.model.User;
 public class DataImporter {
     
     private final Session session;
-    private static Logger logger;
+    private static Logger logger = Logger.getLogger(DataImporter.class);
 
     public DataImporter(Session session) {
         this.session = session;
     }
 
     public static void main(String[] args) throws IOException {
-        logger = Logger.getLogger(DataImporter.class);
         SessionFactory sf = new Configuration().configure("/hibernate.cfg.xml").buildSessionFactory();
         Session session = sf.openSession();
         DataImporter dataImporter = new DataImporter(session);
         dataImporter.importData("/orders.csv");
     }
 
-    private void importData(String file) throws IOException {
+    public void importData(String file) {
         HashMap<Long, User> users = new HashMap<Long, User>();
         HashMap<Long, Item> items = new HashMap<Long, Item>();
         InputStream resourceAsStream = getClass().getResourceAsStream(file);
         BufferedReader reader = new BufferedReader(new InputStreamReader(resourceAsStream));
-        String line = reader.readLine();
+        String line = safeReadLine(reader);
         
         while (line != null) {
             logger.info(line);
@@ -56,7 +55,7 @@ public class DataImporter {
                 item = new Item(itemId);
             }
             user.add(item);
-            line = reader.readLine();
+            line = safeReadLine(reader);
             users.put(id, user);
             items.put(itemId, item);
         }
@@ -69,11 +68,18 @@ public class DataImporter {
         
         Collection<User> allUsers = users.values();
         for (User user : allUsers) {
-            System.out.println(user.itemsBought());
             session.save(user);
         }
         session.getTransaction().commit();
         logger.info("finished persisting");
+    }
+
+    private String safeReadLine(BufferedReader reader) {
+        try {
+            return reader.readLine();
+        } catch (IOException e) {
+            throw new RuntimeException("could not read file", e);
+        }
     }
 
 }

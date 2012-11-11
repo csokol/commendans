@@ -7,6 +7,8 @@
 	</configurations>
 
 	<dependencies>
+		<dependency org="com.github.jsimone" name="webapp-runner" rev="7.0.22.1"/>
+	
 		<!-- Hibernate and other stuff -->
 		<dependency org="org.hibernate" name="hibernate-core" rev="3.6.10.Final"/>
 		<dependency org="org.hibernate.javax.persistence" name="hibernate-jpa-2.0-api" rev="1.0.0.Final" conf="default" />
