@@ -57,7 +57,7 @@ public class SessionFactoryCreator implements ComponentFactory<SessionFactory> {
             LOG.info("dbUrl: " + dbUrl);
             Configuration configuration = new Configuration().configure("/hibernate-heroku.cfg.xml");
             configuration.setProperty("hibernate.connection.url", dbUrl);
-            configuration.setProperty("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
+            configuration.setProperty("hibernate.connection.driver_class", "org.postgresql.Driver");
             configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
             configuration.setProperty("hibernate.connection.username", username);
             configuration.setProperty("hibernate.connection.password", password);
