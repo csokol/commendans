@@ -18,7 +18,7 @@ import br.ime.usp.commendans.model.Customer;
 public class ItemToItemRecommenderFactoryTest {
 
     @Test
-    public void shouldBuildRecommender() {
+    public void shouldBuildRecommenderBookExample() {
         ItemToItemRecommenderFactory factory = new ItemToItemRecommenderFactory();
         Item item1 = new Item(1l);
         Item item2 = new Item(2l);

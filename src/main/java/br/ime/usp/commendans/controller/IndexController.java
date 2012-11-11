@@ -6,6 +6,7 @@ import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.view.Results;
+import br.ime.usp.commendans.util.DataImporter;
 
 
 @Resource
@@ -26,8 +27,8 @@ public class IndexController {
     
     @Get("/import/askjdhakjshdakjshd")
     public void importData() {
-        //DataImporter dataImporter = new DataImporter(session);
-        //dataImporter.importData("/orders.csv");
+        DataImporter dataImporter = new DataImporter(session);
+        dataImporter.importData("/orders.csv");
         result.use(Results.http()).body("<html><body>finished persisting</body></html>");
     }
 }

@@ -6,11 +6,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import br.com.caelum.vraptor.ioc.ApplicationScoped;
 import br.com.caelum.vraptor.ioc.Component;
-import br.ime.usp.commendans.model.Item;
 import br.ime.usp.commendans.model.Customer;
+import br.ime.usp.commendans.model.Item;
 
-@Component
+@Component @ApplicationScoped
 public class ItemToItemRecommenderFactory {
 
     private Map<Item, List<Customer>> usersByItemBought;
@@ -45,7 +46,6 @@ public class ItemToItemRecommenderFactory {
             List<Customer> users = usersByItemBought.get(item);
             for (Customer user : users) {
                 List<Item> boughtTogether = user.itemsBought();
-                System.out.println(item + " -> " +boughtTogether);
                 for (Item i : boughtTogether) {
                     association.associate(i);
                 }

@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
-import br.com.caelum.vraptor.ioc.ApplicationScoped;
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.ioc.ComponentFactory;
 import br.ime.usp.commendans.dao.CustomerDao;
@@ -12,7 +11,7 @@ import br.ime.usp.commendans.itemtoitem.ItemToItemRecommender;
 import br.ime.usp.commendans.itemtoitem.ItemToItemRecommenderFactory;
 import br.ime.usp.commendans.model.Customer;
 
-@Component @ApplicationScoped
+@Component
 public class ItemToItemRecommenderCreator implements ComponentFactory<ItemToItemRecommender> {
     private final CustomerDao dao;
     private final ItemToItemRecommenderFactory factory;
