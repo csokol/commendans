@@ -6,18 +6,18 @@ import javax.annotation.PostConstruct;
 
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.ioc.ComponentFactory;
-import br.ime.usp.commendans.dao.UserDao;
+import br.ime.usp.commendans.dao.CustomerDao;
 import br.ime.usp.commendans.itemtoitem.ItemToItemRecommender;
 import br.ime.usp.commendans.itemtoitem.ItemToItemRecommenderFactory;
-import br.ime.usp.commendans.model.User;
+import br.ime.usp.commendans.model.Customer;
 
 @Component
 public class ItemToItemRecommenderCreator implements ComponentFactory<ItemToItemRecommender> {
-    private final UserDao dao;
+    private final CustomerDao dao;
     private final ItemToItemRecommenderFactory factory;
     private ItemToItemRecommender itemToItemRecommender;
 
-    public ItemToItemRecommenderCreator(UserDao dao, ItemToItemRecommenderFactory factory) {
+    public ItemToItemRecommenderCreator(CustomerDao dao, ItemToItemRecommenderFactory factory) {
         this.dao = dao;
         this.factory = factory;
     }
@@ -29,8 +29,8 @@ public class ItemToItemRecommenderCreator implements ComponentFactory<ItemToItem
     
     @PostConstruct
     public void create() {
-        List<User> users = dao.list();
-        for (User user : users) {
+        List<Customer> users = dao.list();
+        for (Customer user : users) {
             factory.addUser(user);
         }
         this.itemToItemRecommender = factory.build();

@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 @Entity
-public class User {
+public class Customer {
     
     @Id @GeneratedValue
     private Long id;
@@ -17,10 +17,10 @@ public class User {
     private List<Item> items;
     
     @Deprecated
-    public User() {
+    public Customer() {
     }
 
-    public User(List<Item> items, Long id) {
+    public Customer(List<Item> items, Long id) {
         this.items = items;
         this.id = id;
     }

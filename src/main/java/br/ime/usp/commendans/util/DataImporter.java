@@ -16,7 +16,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import br.ime.usp.commendans.model.Item;
-import br.ime.usp.commendans.model.User;
+import br.ime.usp.commendans.model.Customer;
 
 public class DataImporter {
     
@@ -35,20 +35,20 @@ public class DataImporter {
     }
 
     public void importData(String file) {
-        HashMap<Long, User> users = new HashMap<Long, User>();
+        HashMap<Long, Customer> users = new HashMap<Long, Customer>();
         HashMap<Long, Item> items = new HashMap<Long, Item>();
         InputStream resourceAsStream = getClass().getResourceAsStream(file);
         BufferedReader reader = new BufferedReader(new InputStreamReader(resourceAsStream));
         String line = safeReadLine(reader);
         
         while (line != null) {
-            logger.info(line);
+            logger.debug(line);
             List<String> row = Arrays.asList(line.split(","));
             long id = Long.parseLong(row.get(0));
             long itemId = Long.parseLong(row.get(1).charAt(7) + "");
-            User user = users.get(id);
+            Customer user = users.get(id);
             if (user == null) {
-                user = new User(new ArrayList<Item>(), id);
+                user = new Customer(new ArrayList<Item>(), id);
             }
             Item item = items.get(itemId);
             if (item == null) {
@@ -60,18 +60,18 @@ public class DataImporter {
             items.put(itemId, item);
         }
         
-        logger.info("persisting");
+        logger.debug("persisting");
         session.getTransaction().begin();
         for (Item item : items.values()) {
             session.save(item);
         }
         
-        Collection<User> allUsers = users.values();
-        for (User user : allUsers) {
+        Collection<Customer> allUsers = users.values();
+        for (Customer user : allUsers) {
             session.save(user);
         }
         session.getTransaction().commit();
-        logger.info("finished persisting");
+        logger.debug("finished persisting");
     }
 
     private String safeReadLine(BufferedReader reader) {

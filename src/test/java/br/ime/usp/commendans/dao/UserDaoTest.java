@@ -11,7 +11,7 @@ public class UserDaoTest {
     public void shouldFindUsers() {
         SessionFactory sf = new Configuration().configure("/hibernate.cfg.xml").buildSessionFactory();
         Session session = sf.openSession();
-        UserDao userDao = new UserDao(session);
+        CustomerDao userDao = new CustomerDao(session);
         userDao.list();
     }
 

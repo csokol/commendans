@@ -13,7 +13,7 @@ import br.ime.usp.commendans.itemtoitem.ItemToItemRecommenderFactory;
 import br.ime.usp.commendans.itemtoitem.ItemToItemsAssociation;
 import br.ime.usp.commendans.itemtoitem.Tuple;
 import br.ime.usp.commendans.model.Item;
-import br.ime.usp.commendans.model.User;
+import br.ime.usp.commendans.model.Customer;
 
 public class ItemToItemRecommenderFactoryTest {
 
@@ -24,10 +24,10 @@ public class ItemToItemRecommenderFactoryTest {
         Item item2 = new Item(2l);
         Item item3 = new Item(3l);
         Item item4 = new Item(4l);
-        User user1 = new User(Arrays.asList(item1, item3), 1l);
-        User user2 = new User(Arrays.asList(item2, item4), 2l);
-        User user3 = new User(Arrays.asList(item1, item2, item3), 3l);
-        User user4 = new User(Arrays.asList(item3, item4), 4l);
+        Customer user1 = new Customer(Arrays.asList(item1, item3), 1l);
+        Customer user2 = new Customer(Arrays.asList(item2, item4), 2l);
+        Customer user3 = new Customer(Arrays.asList(item1, item2, item3), 3l);
+        Customer user4 = new Customer(Arrays.asList(item3, item4), 4l);
         factory.addUser(user1);
         factory.addUser(user2);
         factory.addUser(user3);

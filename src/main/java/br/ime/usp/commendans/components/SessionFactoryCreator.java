@@ -64,7 +64,6 @@ public class SessionFactoryCreator implements ComponentFactory<SessionFactory> {
             
             sessionFactory = configuration.buildSessionFactory();
         } else {
-            LOG.info("using heroku specific normal confs");
             sessionFactory = new Configuration().configure("/hibernate.cfg.xml").buildSessionFactory();
         }
     }
