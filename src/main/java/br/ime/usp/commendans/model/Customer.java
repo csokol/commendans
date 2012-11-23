@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Customer {
@@ -16,13 +17,17 @@ public class Customer {
     @ManyToMany
     private List<Item> items;
     
+    @ManyToOne
+    private Application app;
+    
     @Deprecated
     public Customer() {
     }
 
-    public Customer(List<Item> items, Long id) {
+    public Customer(List<Item> items, Long id, Application app) {
         this.items = items;
         this.id = id;
+        this.app = app;
     }
 
     public List<Item> itemsBought() {

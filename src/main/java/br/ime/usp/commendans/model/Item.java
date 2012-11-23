@@ -2,18 +2,23 @@ package br.ime.usp.commendans.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Item {
     @Id
     private Long id;
+    
+    @ManyToOne
+    private Application app;
 
     @Deprecated
     protected Item() {
     }
     
-    public Item(Long id) {
+    public Item(Long id, Application app) {
         this.id = id;
+        this.app = app;
     }
     
     @Override

@@ -12,22 +12,24 @@ import br.ime.usp.commendans.itemtoitem.ItemToItemRecommender;
 import br.ime.usp.commendans.itemtoitem.ItemToItemRecommenderFactory;
 import br.ime.usp.commendans.itemtoitem.ItemToItemsAssociation;
 import br.ime.usp.commendans.itemtoitem.Tuple;
-import br.ime.usp.commendans.model.Item;
+import br.ime.usp.commendans.model.Application;
 import br.ime.usp.commendans.model.Customer;
+import br.ime.usp.commendans.model.Item;
 
 public class ItemToItemRecommenderFactoryTest {
 
     @Test
     public void shouldBuildRecommenderBookExample() {
         ItemToItemRecommenderFactory factory = new ItemToItemRecommenderFactory();
-        Item item1 = new Item(1l);
-        Item item2 = new Item(2l);
-        Item item3 = new Item(3l);
-        Item item4 = new Item(4l);
-        Customer user1 = new Customer(Arrays.asList(item1, item3), 1l);
-        Customer user2 = new Customer(Arrays.asList(item2, item4), 2l);
-        Customer user3 = new Customer(Arrays.asList(item1, item2, item3), 3l);
-        Customer user4 = new Customer(Arrays.asList(item3, item4), 4l);
+        Application cdc = new Application("casadocodigo", "1234");
+        Item item1 = new Item(1l, cdc);
+        Item item2 = new Item(2l, cdc);
+        Item item3 = new Item(3l, cdc);
+        Item item4 = new Item(4l, cdc);
+        Customer user1 = new Customer(Arrays.asList(item1, item3), 1l, cdc);
+        Customer user2 = new Customer(Arrays.asList(item2, item4), 2l, cdc);
+        Customer user3 = new Customer(Arrays.asList(item1, item2, item3), 3l, cdc);
+        Customer user4 = new Customer(Arrays.asList(item3, item4), 4l, cdc);
         factory.addUser(user1);
         factory.addUser(user2);
         factory.addUser(user3);
