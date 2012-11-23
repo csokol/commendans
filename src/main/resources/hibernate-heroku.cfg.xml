@@ -18,6 +18,7 @@
 
         <mapping class="br.ime.usp.commendans.model.Item" />
         <mapping class="br.ime.usp.commendans.model.Customer" />
+        <mapping class="br.ime.usp.commendans.model.Application" />
 
     </session-factory>
 </hibernate-configuration>
