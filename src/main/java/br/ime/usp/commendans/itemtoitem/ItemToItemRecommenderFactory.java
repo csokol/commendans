@@ -62,4 +62,8 @@ public class ItemToItemRecommenderFactory {
         return associations;
     }
 
+    public void clean() {
+        customerByItemBought = new HashMap<Item, List<Customer>>();
+    }
+
 }

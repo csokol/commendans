@@ -42,6 +42,7 @@ public class DataImporter {
         BufferedReader reader = new BufferedReader(new InputStreamReader(resourceAsStream));
         String line = safeReadLine(reader);
         Application cdc = new Application("Casa do Código", "123");
+        session.save(cdc);
         
         while (line != null) {
             logger.debug(line);

@@ -19,10 +19,10 @@ public class CustomerDao {
     
     @SuppressWarnings("unchecked")
     public List<Customer> list() {
-        Query query = session.createQuery("select customer from Customer customer join fetch customer.items");
         return session.createCriteria(Customer.class).list();
     }
 
+    @SuppressWarnings("unchecked")
     public List<Customer> findCustomersOf(Application app) {
         Query query = session.createQuery("select customer from Customer customer " +
         		"join fetch customer.items " +

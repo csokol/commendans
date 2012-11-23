@@ -6,21 +6,24 @@ import javax.annotation.PostConstruct;
 
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.ioc.ComponentFactory;
+import br.ime.usp.commendans.dao.ApplicationDao;
 import br.ime.usp.commendans.dao.CustomerDao;
 import br.ime.usp.commendans.itemtoitem.ItemToItemRecommenderFactory;
 import br.ime.usp.commendans.itemtoitem.SingleAppRecommender;
+import br.ime.usp.commendans.model.Application;
 import br.ime.usp.commendans.model.Customer;
 import br.ime.usp.commendans.recommender.GeneralRecommender;
 
 @Component
 public class RecommenderCreator implements ComponentFactory<GeneralRecommender> {
-    private final CustomerDao dao;
+    private final CustomerDao customerDao;
     private final ItemToItemRecommenderFactory factory;
-    private SingleAppRecommender itemToItemRecommender;
     private GeneralRecommender recommender;
+    private final ApplicationDao appDao;
 
-    public RecommenderCreator(CustomerDao dao, ItemToItemRecommenderFactory factory) {
-        this.dao = dao;
+    public RecommenderCreator(CustomerDao dao, ApplicationDao appDao, ItemToItemRecommenderFactory factory) {
+        this.customerDao = dao;
+        this.appDao = appDao;
         this.factory = factory;
     }
 
@@ -31,11 +34,17 @@ public class RecommenderCreator implements ComponentFactory<GeneralRecommender> 
     
     @PostConstruct
     public void create() {
-        List<Customer> users = dao.list();
-        this.itemToItemRecommender = buildSingleAppRecommender(users);
+        List<Application> apps = appDao.list();
+        for (Application app : apps) {
+            List<Customer> customers = customerDao.findCustomersOf(app);
+            SingleAppRecommender recommender = buildSingleAppRecommender(customers);
+            app.use(recommender);
+        }
+        this.recommender = new GeneralRecommender(apps);
     }
 
     private SingleAppRecommender buildSingleAppRecommender(List<Customer> users) {
+        factory.clean();
         for (Customer user : users) {
             factory.addUser(user);
         }

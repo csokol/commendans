@@ -30,14 +30,14 @@ public class SingleAppRecommender implements Recommender {
     }
 
     @Override
-    public ItemVector recommendendItemsFor(Item item) {
+    public ItemVector recommendedItemsFor(Item item) {
         return associations.get(item);
     }
 
-    public ItemVector recommendendItemsFor(List<Item> items) {
+    public ItemVector recommendedItemsFor(List<Item> items) {
         ItemVector vector = new ItemVector(new ArrayList<Tuple>());
         for (Item item : items) {
-            ItemVector other = recommendendItemsFor(item);
+            ItemVector other = recommendedItemsFor(item);
             vector = vector.merge(other);
         }
         return vector;

@@ -5,47 +5,38 @@ import static org.junit.Assert.assertEquals;
 import java.util.Arrays;
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import br.ime.usp.commendans.model.Application;
 import br.ime.usp.commendans.model.Customer;
 import br.ime.usp.commendans.model.Item;
 
-public class CustomerDaoTest {
+public class CustomerDaoTest extends DaoTest {
 
-    private static Session session;
     private static CustomerDao userDao;
     private static Application app;
 
-    @BeforeClass
-    public static void setUpClass() {
-        SessionFactory sf = new Configuration().configure(
-                "/hibernate.test.cfg.xml").buildSessionFactory();
-        session = sf.openSession();
-        userDao = new CustomerDao(session);
-        app = new Application("cdc", "123");
-        session.save(app);
-    }
-    
     @Before
     public void setUp() {
+        userDao = new CustomerDao(session);
+        app = new Application("cdc", "123");
         session.beginTransaction();
+        session.save(app);
     }
     
     @After
     public void tearDown() {
         session.getTransaction().rollback();
+        session.clear();
     }
 
     @Test
     public void shouldFindUsers() {
-        List<Item> items = Arrays.asList();
+        Item item = new Item(1l, app);
+        session.save(item);
+        List<Item> items = Arrays.asList(item);
         session.save(new Customer(items, 1l, app));
         session.save(new Customer(items, 2l, app));
         session.save(new Customer(items, 3l, app));
@@ -56,6 +47,7 @@ public class CustomerDaoTest {
     @Test
     public void shouldFindUsersOfSpecificApp() throws Exception {
         Item item = new Item(1l, app);
+        session.save(item);
         List<Item> items = Arrays.asList(item);
         session.save(new Customer(items, 1l, app));
         session.save(new Customer(items, 2l, app));
@@ -67,14 +59,13 @@ public class CustomerDaoTest {
         session.save(item);
         session.save(new Customer(items, 1l, otherApp));
         session.save(new Customer(items, 2l, otherApp));
-        session.save(new Customer(items, 3l, otherApp));
+        session.save(new Customer(items, 3l, otherApp));    
 
         List<Customer> customers = userDao.findCustomersOf(app);
         assertEquals(3, customers.size());
         assertEquals("cdc", customers.get(0).getApp().getName());
         assertEquals("cdc", customers.get(1).getApp().getName());
         assertEquals("cdc", customers.get(2).getApp().getName());
-
     }
 
 }

@@ -8,37 +8,39 @@ import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.view.Results;
 import br.ime.usp.commendans.dao.ItemDao;
 import br.ime.usp.commendans.infra.TupleJsonSerializer;
-import br.ime.usp.commendans.itemtoitem.SingleAppRecommender;
 import br.ime.usp.commendans.itemtoitem.ItemVector;
 import br.ime.usp.commendans.itemtoitem.Tuple;
 import br.ime.usp.commendans.model.Item;
+import br.ime.usp.commendans.recommender.GeneralRecommender;
 
 @Resource
 public class ItemToItemController {
-    private final SingleAppRecommender itemToItem;
     private final ItemDao itemDao;
     private final Result result;
     private final TupleJsonSerializer serializer;
+    private final GeneralRecommender recommender;
 
-    public ItemToItemController(SingleAppRecommender itemToItem, ItemDao itemDao, Result result, TupleJsonSerializer serializer) {
-        this.itemToItem = itemToItem;
+    public ItemToItemController(GeneralRecommender recommender, 
+            ItemDao itemDao, Result result, 
+            TupleJsonSerializer serializer) {
+        this.recommender = recommender;
         this.itemDao = itemDao;
         this.result = result;
         this.serializer = serializer;
     }
     
     @Get("/recommend/item/{itemId}")
-    public void recommend(Long itemId) {
+    public void recommend(Long itemId, String accessKey) {
         Item item = itemDao.find(itemId);
-        ItemVector recommendend = itemToItem.recommendendItemsFor(item);
-        serializeResult(recommendend.getTuples());
+        ItemVector recommended = recommender.recommendedItemsFor(item, accessKey);
+        serializeResult(recommended.getTuples());
     }
     
     @Get("/recommend/items/")
-    public void recommend(List<Long> itemsIds) {
+    public void recommend(List<Long> itemsIds, String accessKey) {
         List<Item> items = itemDao.find(itemsIds);
-        List<Tuple> recommendend = itemToItem.recommendendItemsFor(items).getTuples();
-        serializeResult(recommendend);
+        ItemVector recommended = recommender.recommendedItemsFor(items, accessKey);
+        serializeResult(recommended.getTuples());
     }
 
     private void serializeResult(List<Tuple> recommendend) {

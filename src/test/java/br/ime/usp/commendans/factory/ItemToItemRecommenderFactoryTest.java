@@ -38,7 +38,7 @@ public class ItemToItemRecommenderFactoryTest {
         SingleAppRecommender recommender = factory.build();
         HashMap<Item, ItemToItemsAssociation> associations = factory.getAssociations();
         
-        List<Tuple> recommendedItems = recommender.recommendendItemsFor(item1).getTuples();
+        List<Tuple> recommendedItems = recommender.recommendedItemsFor(item1).getTuples();
         ItemToItemsAssociation association = associations.get(item1);
         assertEquals(0.0, association.associationValue(item1), 0.001);
         assertEquals(1.0, association.associationValue(item2), 0.001);
@@ -51,7 +51,7 @@ public class ItemToItemRecommenderFactoryTest {
         assertEquals(item2, recommendedItems.get(1).getItem());
         assertEquals(1.0, recommendedItems.get(1).getValue().doubleValue(), 0.001);
         
-        recommendedItems = recommender.recommendendItemsFor(item2).getTuples();
+        recommendedItems = recommender.recommendedItemsFor(item2).getTuples();
         association = associations.get(item2);
         assertEquals(1.0, association.associationValue(item1), 0.001);
         assertEquals(0.0, association.associationValue(item2), 0.001);
@@ -63,7 +63,7 @@ public class ItemToItemRecommenderFactoryTest {
         assertEquals(1.0, recommendedItems.get(1).getValue().doubleValue(), 0.001);
         assertEquals(1.0, recommendedItems.get(2).getValue().doubleValue(), 0.001);
         
-        recommendedItems = recommender.recommendendItemsFor(item3).getTuples();
+        recommendedItems = recommender.recommendedItemsFor(item3).getTuples();
         association = associations.get(item3);
         assertEquals(2.0, association.associationValue(item1), 0.001);
         assertEquals(1.0, association.associationValue(item2), 0.001);
