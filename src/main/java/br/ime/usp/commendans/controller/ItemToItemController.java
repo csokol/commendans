@@ -8,19 +8,19 @@ import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.view.Results;
 import br.ime.usp.commendans.dao.ItemDao;
 import br.ime.usp.commendans.infra.TupleJsonSerializer;
-import br.ime.usp.commendans.itemtoitem.ItemToItemRecommender;
+import br.ime.usp.commendans.itemtoitem.SingleAppRecommender;
 import br.ime.usp.commendans.itemtoitem.ItemVector;
 import br.ime.usp.commendans.itemtoitem.Tuple;
 import br.ime.usp.commendans.model.Item;
 
 @Resource
 public class ItemToItemController {
-    private final ItemToItemRecommender itemToItem;
+    private final SingleAppRecommender itemToItem;
     private final ItemDao itemDao;
     private final Result result;
     private final TupleJsonSerializer serializer;
 
-    public ItemToItemController(ItemToItemRecommender itemToItem, ItemDao itemDao, Result result, TupleJsonSerializer serializer) {
+    public ItemToItemController(SingleAppRecommender itemToItem, ItemDao itemDao, Result result, TupleJsonSerializer serializer) {
         this.itemToItem = itemToItem;
         this.itemDao = itemDao;
         this.result = result;

@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import br.ime.usp.commendans.itemtoitem.ItemToItemRecommender;
+import br.ime.usp.commendans.itemtoitem.SingleAppRecommender;
 import br.ime.usp.commendans.itemtoitem.ItemToItemRecommenderFactory;
 import br.ime.usp.commendans.itemtoitem.ItemToItemsAssociation;
 import br.ime.usp.commendans.itemtoitem.Tuple;
@@ -35,7 +35,7 @@ public class ItemToItemRecommenderFactoryTest {
         factory.addUser(user3);
         factory.addUser(user4);
         
-        ItemToItemRecommender recommender = factory.build();
+        SingleAppRecommender recommender = factory.build();
         HashMap<Item, ItemToItemsAssociation> associations = factory.getAssociations();
         
         List<Tuple> recommendedItems = recommender.recommendendItemsFor(item1).getTuples();

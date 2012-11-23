@@ -37,13 +37,13 @@ public class ItemToItemRecommenderFactory {
     }
     
     
-    public ItemToItemRecommender build() {
+    public SingleAppRecommender build() {
         associations = new HashMap<Item, ItemToItemsAssociation>();
         Set<Item> items = customerByItemBought.keySet();
         for (Item item : items) {
             associate(item);
         }
-        return new ItemToItemRecommender(associations);
+        return new SingleAppRecommender(associations);
     }
 
     private void associate(Item item) {

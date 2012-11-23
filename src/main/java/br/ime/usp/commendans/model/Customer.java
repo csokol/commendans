@@ -13,8 +13,10 @@ public class Customer {
     
     @Id @GeneratedValue
     private Long id;
+    
+    private Long appId;
 
-    @ManyToMany
+    @ManyToMany()
     private List<Item> items;
     
     @ManyToOne
@@ -24,9 +26,9 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(List<Item> items, Long id, Application app) {
+    public Customer(List<Item> items, Long appId, Application app) {
         this.items = items;
-        this.id = id;
+        this.appId = appId;
         this.app = app;
     }
 
@@ -36,11 +38,15 @@ public class Customer {
     
     @Override
     public String toString() {
-        return "User " + id;
+        return "User " + appId + " from " + app;
     }
 
     public void add(Item item) {
         items.add(item);
+    }
+    
+    public Application getApp() {
+        return app;
     }
     
 }
