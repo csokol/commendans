@@ -2,6 +2,7 @@ package br.ime.usp.commendans.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 import br.com.caelum.vraptor.ioc.Component;
@@ -16,14 +17,16 @@ public class ItemDao {
         this.session = session;
     }
 
-    public Item find(Long itemId) {
-        return (Item) session.load(Item.class, itemId);
+    public Item findByAppItemId(Long appItemId) {
+        Query query = session.createQuery("select item from Item item where item.appItemId = :id");
+        query.setLong("id", appItemId);
+        return (Item) query.uniqueResult();
     }
 
     @SuppressWarnings("unchecked")
-    public List<Item> find(List<Long> itemsIds) {
+    public List<Item> findAppItemIds(List<Long> itemsIds) {
         return session
-                .createQuery("select item from Item item where item.id in :ids")
+                .createQuery("select item from Item item where item.appItemId in :ids")
                 .setParameterList("ids", itemsIds)
                 .list();
     }

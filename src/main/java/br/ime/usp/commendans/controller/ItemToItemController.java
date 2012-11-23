@@ -29,16 +29,16 @@ public class ItemToItemController {
         this.serializer = serializer;
     }
     
-    @Get("/recommend/item/{itemId}")
-    public void recommend(Long itemId, String accessKey) {
-        Item item = itemDao.find(itemId);
+    @Get("/recommend/item/{appItemId}")
+    public void recommend(Long appItemId, String accessKey) {
+        Item item = itemDao.findByAppItemId(appItemId);
         ItemVector recommended = recommender.recommendedItemsFor(item, accessKey);
         serializeResult(recommended.getTuples());
     }
     
     @Get("/recommend/items/")
     public void recommend(List<Long> itemsIds, String accessKey) {
-        List<Item> items = itemDao.find(itemsIds);
+        List<Item> items = itemDao.findAppItemIds(itemsIds);
         ItemVector recommended = recommender.recommendedItemsFor(items, accessKey);
         serializeResult(recommended.getTuples());
     }
