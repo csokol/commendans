@@ -52,7 +52,7 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.1.1</version>
 				<configuration>
-    					<webXml>src/main/webapp/WEB-INF/web-heroku.xml</webXml>        
+   					<webXml>src/main/webapp/WEB-INF/web-heroku.xml</webXml>        
   				</configuration>
 			</plugin>
 			<plugin>
