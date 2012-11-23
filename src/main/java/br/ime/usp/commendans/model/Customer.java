@@ -38,8 +38,4 @@ public class Customer {
         items.add(item);
     }
     
-    public List<Item> getItems() {
-        return items;
-    }
-
 }

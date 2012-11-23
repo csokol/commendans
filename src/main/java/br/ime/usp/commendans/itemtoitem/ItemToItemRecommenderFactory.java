@@ -14,45 +14,48 @@ import br.ime.usp.commendans.model.Item;
 @Component @ApplicationScoped
 public class ItemToItemRecommenderFactory {
 
-    private Map<Item, List<Customer>> usersByItemBought;
+    private Map<Item, List<Customer>> customerByItemBought;
     private HashMap<Item, ItemToItemsAssociation> associations;
     
     public ItemToItemRecommenderFactory() {
-        usersByItemBought = new HashMap<Item, List<Customer>>();
+        customerByItemBought = new HashMap<Item, List<Customer>>();
     }
     
     public void addUser(Customer user) {
-        List<Item> items = user.itemsBought();
-        for (Item item : items) {
+        for (Item item : user.itemsBought()) {
             store(item, user);
         }
     }
 
     private void store(Item item, Customer user) {
-        List<Customer> users = usersByItemBought.get(item);
+        List<Customer> users = customerByItemBought.get(item);
         if (users == null) {
             users = new ArrayList<Customer>();
         }
         users.add(user);
-        usersByItemBought.put(item, users);
+        customerByItemBought.put(item, users);
     }
     
     
     public ItemToItemRecommender build() {
         associations = new HashMap<Item, ItemToItemsAssociation>();
-        Set<Item> items = usersByItemBought.keySet();
+        Set<Item> items = customerByItemBought.keySet();
         for (Item item : items) {
-            ItemToItemsAssociation association = new ItemToItemsAssociation(item);
-            List<Customer> users = usersByItemBought.get(item);
-            for (Customer user : users) {
-                List<Item> boughtTogether = user.itemsBought();
-                for (Item i : boughtTogether) {
-                    association.associate(i);
-                }
-            }
-            associations.put(item, association);
+            associate(item);
         }
         return new ItemToItemRecommender(associations);
+    }
+
+    private void associate(Item item) {
+        ItemToItemsAssociation association = new ItemToItemsAssociation(item);
+        List<Customer> customers = customerByItemBought.get(item);
+        for (Customer user : customers) {
+            List<Item> boughtTogether = user.itemsBought();
+            for (Item i : boughtTogether) {
+                association.associate(i);
+            }
+        }
+        associations.put(item, association);
     }
     
     public HashMap<Item, ItemToItemsAssociation> getAssociations() {
