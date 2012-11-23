@@ -31,7 +31,7 @@ public class TupleJsonSerializer {
     
     private class IncludeAllowedAttributes implements ExclusionStrategy {
 
-        private List<String> allowedAttributes = Arrays.asList("item", "id", "value");
+        private List<String> allowedAttributes = Arrays.asList("item", "appItemId", "value");
 
         @Override
         public boolean shouldSkipClass(Class<?> arg0) {
