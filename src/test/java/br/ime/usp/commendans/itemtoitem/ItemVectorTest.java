@@ -14,7 +14,7 @@ import br.ime.usp.commendans.model.Item;
 public class ItemVectorTest {
 
     @Test
-    public void test() {
+    public void shouldMergeTuples() {
         Application cdc = new Application("Casa do Código", "123");
         Item item1 = new Item(1l, cdc);
         Item item2 = new Item(2l, cdc);

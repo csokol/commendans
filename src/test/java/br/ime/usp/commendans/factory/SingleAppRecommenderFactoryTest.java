@@ -8,19 +8,19 @@ import java.util.List;
 
 import org.junit.Test;
 
-import br.ime.usp.commendans.itemtoitem.SingleAppRecommender;
-import br.ime.usp.commendans.itemtoitem.ItemToItemRecommenderFactory;
 import br.ime.usp.commendans.itemtoitem.ItemToItemsAssociation;
+import br.ime.usp.commendans.itemtoitem.SingleAppRecommender;
+import br.ime.usp.commendans.itemtoitem.SingleAppRecommenderFactory;
 import br.ime.usp.commendans.itemtoitem.Tuple;
 import br.ime.usp.commendans.model.Application;
 import br.ime.usp.commendans.model.Customer;
 import br.ime.usp.commendans.model.Item;
 
-public class ItemToItemRecommenderFactoryTest {
+public class SingleAppRecommenderFactoryTest {
 
     @Test
-    public void shouldBuildRecommenderBookExample() {
-        ItemToItemRecommenderFactory factory = new ItemToItemRecommenderFactory();
+    public void shouldBuildRecommenderFromCollectiveIntelligenceInActionExample() {
+        SingleAppRecommenderFactory factory = new SingleAppRecommenderFactory();
         Application cdc = new Application("casadocodigo", "1234");
         Item item1 = new Item(1l, cdc);
         Item item2 = new Item(2l, cdc);

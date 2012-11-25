@@ -12,12 +12,12 @@ import br.ime.usp.commendans.model.Customer;
 import br.ime.usp.commendans.model.Item;
 
 @Component @ApplicationScoped
-public class ItemToItemRecommenderFactory {
+public class SingleAppRecommenderFactory {
 
     private Map<Item, List<Customer>> customerByItemBought;
     private HashMap<Item, ItemToItemsAssociation> associations;
     
-    public ItemToItemRecommenderFactory() {
+    public SingleAppRecommenderFactory() {
         customerByItemBought = new HashMap<Item, List<Customer>>();
     }
     
