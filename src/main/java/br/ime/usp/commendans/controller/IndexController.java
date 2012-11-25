@@ -7,6 +7,7 @@ import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.view.Results;
 import br.ime.usp.commendans.infra.DataImporter;
+import br.ime.usp.commendans.recommender.RecommenderCreator;
 
 
 @Resource
@@ -14,10 +15,12 @@ public class IndexController {
     
     private final Result result;
     private final Session session;
+    private final RecommenderCreator recommenderCreator;
 
-    public IndexController(Result result, Session session) {
+    public IndexController(Result result, Session session, RecommenderCreator recommenderCreator) {
         this.result = result;
         this.session = session;
+        this.recommenderCreator = recommenderCreator;
     }
     
     @Get("/")
@@ -29,6 +32,7 @@ public class IndexController {
     public void importData() {
         DataImporter dataImporter = new DataImporter(session);
         dataImporter.importData("/orders.csv");
+        recommenderCreator.create();
         result.use(Results.http()).body("<html><body>finished persisting</body></html>");
     }
 }

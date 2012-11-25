@@ -1,4 +1,4 @@
-package br.ime.usp.commendans.infra;
+package br.ime.usp.commendans.recommender;
 
 import java.util.List;
 
@@ -14,7 +14,6 @@ import br.ime.usp.commendans.dao.ApplicationDao;
 import br.ime.usp.commendans.dao.CustomerDao;
 import br.ime.usp.commendans.model.Application;
 import br.ime.usp.commendans.model.Customer;
-import br.ime.usp.commendans.recommender.GeneralRecommender;
 import br.ime.usp.commendans.recommender.itemtoitem.SingleAppRecommender;
 import br.ime.usp.commendans.recommender.itemtoitem.SingleAppRecommenderFactory;
 
@@ -47,7 +46,7 @@ public class RecommenderCreator implements ComponentFactory<GeneralRecommender> 
         }
         this.recommender = new GeneralRecommender(apps);
     }
-
+    
     private SingleAppRecommender buildSingleAppRecommender(List<Customer> users) {
         factory.clean();
         for (Customer user : users) {
