@@ -6,10 +6,11 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import br.com.caelum.vraptor.ioc.Component;
+import br.com.caelum.vraptor.ioc.PrototypeScoped;
 import br.ime.usp.commendans.model.Application;
 import br.ime.usp.commendans.model.Customer;
 
-@Component
+@Component @PrototypeScoped
 public class CustomerDao {
     private final Session session;
 
