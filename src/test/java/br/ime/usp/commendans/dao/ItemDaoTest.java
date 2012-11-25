@@ -28,10 +28,14 @@ public class ItemDaoTest extends DaoTest {
     @Test
     public void shouldFindByAppItemId() throws Exception {
         Application app = new Application("cdc", "123");
+        Application app2 = new Application("caelum", "1234");
         session.save(app);
+        session.save(app2);
         session.save(new Item(11l, app));
-        Item item = itemDao.findByAppItemId(11l);
+        session.save(new Item(11l, app2));
+        Item item = itemDao.findByAppItemId(11l, app);
         assertEquals(11l, item.getAppItemId().longValue());
+        assertEquals("cdc", item.getApp().getName());
     }
 
 }

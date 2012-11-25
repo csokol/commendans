@@ -32,5 +32,13 @@ public class ApplicationDaoTest extends DaoTest {
         List<Application> apps = applicationDao.list();
         assertEquals(2, apps.size());
     }
+    
+    @Test
+    public void shouldFindAppByAccessKey() throws Exception {
+        session.save(new Application("cdc", "123"));
+        session.save(new Application("caelum", "1234"));
+        Application app = applicationDao.findByAccessKey("1234");
+        assertEquals("caelum", app.getName());
+    }
 
 }
