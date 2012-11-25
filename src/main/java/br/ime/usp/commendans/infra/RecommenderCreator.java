@@ -4,6 +4,9 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
 import br.com.caelum.vraptor.ioc.ApplicationScoped;
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.ioc.ComponentFactory;
@@ -22,9 +25,10 @@ public class RecommenderCreator implements ComponentFactory<GeneralRecommender> 
     private GeneralRecommender recommender;
     private final ApplicationDao appDao;
 
-    public RecommenderCreator(CustomerDao dao, ApplicationDao appDao, SingleAppRecommenderFactory factory) {
-        this.customerDao = dao;
-        this.appDao = appDao;
+    public RecommenderCreator(SingleAppRecommenderFactory factory, SessionFactory sf) {
+        Session session = sf.openSession();
+        this.customerDao = new CustomerDao(session);
+        this.appDao = new ApplicationDao(session);
         this.factory = factory;
     }
 
