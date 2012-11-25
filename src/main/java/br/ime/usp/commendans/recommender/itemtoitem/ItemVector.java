@@ -1,4 +1,4 @@
-package br.ime.usp.commendans.itemtoitem;
+package br.ime.usp.commendans.recommender.itemtoitem;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -8,6 +8,8 @@ import javax.servlet.ServletContext;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import br.ime.usp.commendans.infra.SessionFactoryCreator;
+
 public class SessionFactoryCreatorTest {
 
     @Test @Ignore

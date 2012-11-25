@@ -9,11 +9,11 @@ import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.ioc.ComponentFactory;
 import br.ime.usp.commendans.dao.ApplicationDao;
 import br.ime.usp.commendans.dao.CustomerDao;
-import br.ime.usp.commendans.itemtoitem.SingleAppRecommenderFactory;
-import br.ime.usp.commendans.itemtoitem.SingleAppRecommender;
 import br.ime.usp.commendans.model.Application;
 import br.ime.usp.commendans.model.Customer;
 import br.ime.usp.commendans.recommender.GeneralRecommender;
+import br.ime.usp.commendans.recommender.itemtoitem.SingleAppRecommender;
+import br.ime.usp.commendans.recommender.itemtoitem.SingleAppRecommenderFactory;
 
 @Component @ApplicationScoped
 public class RecommenderCreator implements ComponentFactory<GeneralRecommender> {

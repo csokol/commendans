@@ -10,11 +10,11 @@ import br.com.caelum.vraptor.view.Results;
 import br.ime.usp.commendans.dao.ApplicationDao;
 import br.ime.usp.commendans.dao.ItemDao;
 import br.ime.usp.commendans.infra.TupleJsonSerializer;
-import br.ime.usp.commendans.itemtoitem.ItemVector;
-import br.ime.usp.commendans.itemtoitem.Tuple;
 import br.ime.usp.commendans.model.Application;
 import br.ime.usp.commendans.model.Item;
 import br.ime.usp.commendans.recommender.GeneralRecommender;
+import br.ime.usp.commendans.recommender.itemtoitem.ItemVector;
+import br.ime.usp.commendans.recommender.itemtoitem.Tuple;
 
 @Resource
 public class ItemToItemController {

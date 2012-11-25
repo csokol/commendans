@@ -1,7 +1,7 @@
-package br.ime.usp.commendans;
+package br.ime.usp.commendans.recommender;
 
-import br.ime.usp.commendans.itemtoitem.ItemVector;
 import br.ime.usp.commendans.model.Item;
+import br.ime.usp.commendans.recommender.itemtoitem.ItemVector;
 
 public interface Recommender {
     public ItemVector recommendedItemsFor(Item item);

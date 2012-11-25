@@ -6,7 +6,7 @@ import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.view.Results;
-import br.ime.usp.commendans.util.DataImporter;
+import br.ime.usp.commendans.infra.DataImporter;
 
 
 @Resource

@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import br.com.caelum.vraptor.ioc.Component;
-import br.ime.usp.commendans.itemtoitem.Tuple;
+import br.ime.usp.commendans.recommender.itemtoitem.Tuple;
 
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;

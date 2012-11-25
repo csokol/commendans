@@ -1,9 +1,9 @@
-package br.ime.usp.commendans.runner;
+package br.ime.usp.commendans.infra;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
 
-public class Runner {
+public class JettyRunner {
     
     public static void main(String[] args) throws Exception {
         String webappDirLocation = "src/main/webapp/";

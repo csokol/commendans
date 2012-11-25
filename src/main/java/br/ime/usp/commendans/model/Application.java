@@ -7,8 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 
-import br.ime.usp.commendans.itemtoitem.ItemVector;
-import br.ime.usp.commendans.itemtoitem.SingleAppRecommender;
+import br.ime.usp.commendans.recommender.itemtoitem.ItemVector;
+import br.ime.usp.commendans.recommender.itemtoitem.SingleAppRecommender;
 
 @Entity
 public class Application {

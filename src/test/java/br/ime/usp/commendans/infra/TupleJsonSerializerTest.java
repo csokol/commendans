@@ -6,9 +6,9 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
-import br.ime.usp.commendans.itemtoitem.Tuple;
 import br.ime.usp.commendans.model.Application;
 import br.ime.usp.commendans.model.Item;
+import br.ime.usp.commendans.recommender.itemtoitem.Tuple;
 
 public class TupleJsonSerializerTest {
 

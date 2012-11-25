@@ -1,4 +1,4 @@
-package br.ime.usp.commendans.components;
+package br.ime.usp.commendans.infra;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;

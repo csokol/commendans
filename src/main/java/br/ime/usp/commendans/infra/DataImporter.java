@@ -1,4 +1,4 @@
-package br.ime.usp.commendans.util;
+package br.ime.usp.commendans.infra;
 
 import java.io.BufferedReader;
 import java.io.IOException;

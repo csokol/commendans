@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import br.ime.usp.commendans.itemtoitem.ItemVector;
 import br.ime.usp.commendans.model.Application;
 import br.ime.usp.commendans.model.Item;
+import br.ime.usp.commendans.recommender.itemtoitem.ItemVector;
 
 public class GeneralRecommender {
 

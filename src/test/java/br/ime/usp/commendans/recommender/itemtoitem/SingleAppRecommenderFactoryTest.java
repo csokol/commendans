@@ -1,4 +1,4 @@
-package br.ime.usp.commendans.factory;
+package br.ime.usp.commendans.recommender.itemtoitem;
 
 import static org.junit.Assert.assertEquals;
 
@@ -8,13 +8,13 @@ import java.util.List;
 
 import org.junit.Test;
 
-import br.ime.usp.commendans.itemtoitem.ItemToItemsAssociation;
-import br.ime.usp.commendans.itemtoitem.SingleAppRecommender;
-import br.ime.usp.commendans.itemtoitem.SingleAppRecommenderFactory;
-import br.ime.usp.commendans.itemtoitem.Tuple;
 import br.ime.usp.commendans.model.Application;
 import br.ime.usp.commendans.model.Customer;
 import br.ime.usp.commendans.model.Item;
+import br.ime.usp.commendans.recommender.itemtoitem.ItemToItemsAssociation;
+import br.ime.usp.commendans.recommender.itemtoitem.SingleAppRecommender;
+import br.ime.usp.commendans.recommender.itemtoitem.SingleAppRecommenderFactory;
+import br.ime.usp.commendans.recommender.itemtoitem.Tuple;
 
 public class SingleAppRecommenderFactoryTest {
 

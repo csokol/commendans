@@ -1,4 +1,4 @@
-package br.ime.usp.commendans.itemtoitem;
+package br.ime.usp.commendans.recommender.itemtoitem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import br.ime.usp.commendans.Recommender;
 import br.ime.usp.commendans.model.Item;
+import br.ime.usp.commendans.recommender.Recommender;
 
 public class SingleAppRecommender implements Recommender {
 
