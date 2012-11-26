@@ -10,6 +10,7 @@ import br.com.caelum.vraptor.view.Results;
 import br.ime.usp.commendans.dao.ClientAppDao;
 import br.ime.usp.commendans.dao.ItemDao;
 import br.ime.usp.commendans.infra.TupleJsonSerializer;
+import br.ime.usp.commendans.infra.ValidAccessKey;
 import br.ime.usp.commendans.model.ClientApp;
 import br.ime.usp.commendans.model.Item;
 import br.ime.usp.commendans.recommender.GeneralRecommender;
@@ -37,39 +38,29 @@ public class ItemToItemController {
         this.recommenderCreator = recommenderCreator;
     }
     
-    @Get("/recommend/item/{appItemId}")
+    @ValidAccessKey(paramName = "accessKey")
+    @Get("/recommend/item/{appItemId}") 
     public void recommend(Long appItemId, String accessKey) {
-        if (validKey(accessKey)) {
-            ClientApp app = appDao.findByAccessKey(accessKey);
-            Item item = itemDao.findByAppItemId(appItemId, app);
-            ItemVector recommended = recommender.recommendedItemsFor(item, accessKey);
-            serializeResult(recommended);
-        }
+        ClientApp app = appDao.findByAccessKey(accessKey);
+        Item item = itemDao.findByAppItemId(appItemId, app);
+        ItemVector recommended = recommender.recommendedItemsFor(item,
+                accessKey);
+        serializeResult(recommended);
     }
     
+    @ValidAccessKey(paramName = "accessKey")
     @Get("/recommend/items/")
     public void recommend(List<Long> itemsIds, String accessKey) {
-        if (validKey(accessKey)) {
-            ClientApp app = appDao.findByAccessKey(accessKey);
-            List<Item> items = itemDao.findItems(itemsIds, app).getItems();
-            ItemVector recommended = recommender.recommendedItemsFor(items, accessKey);
-            serializeResult(recommended);
-        }
+        ClientApp app = appDao.findByAccessKey(accessKey);
+        List<Item> items = itemDao.findItems(itemsIds, app).getItems();
+        ItemVector recommended = recommender.recommendedItemsFor(items, accessKey);
+        serializeResult(recommended);
     }
     
     @Get("/recalculate/")
     public void recalculate() {
         recommenderCreator.create();
         result.use(Results.http()).body("ok");
-    }
-
-    private boolean validKey(String accessKey) {
-        ClientApp app = appDao.findByAccessKey(accessKey);
-        if (app == null) {
-            result.notFound();
-            return false;
-        }
-        return true;
     }
 
     private void serializeResult(ItemVector recommended) {

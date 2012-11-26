@@ -13,6 +13,7 @@ import br.com.caelum.vraptor.view.Results;
 import br.ime.usp.commendans.dao.ClientAppDao;
 import br.ime.usp.commendans.dao.CustomerDao;
 import br.ime.usp.commendans.dao.ItemDao;
+import br.ime.usp.commendans.infra.ValidAccessKey;
 import br.ime.usp.commendans.model.ClientApp;
 import br.ime.usp.commendans.model.Customer;
 import br.ime.usp.commendans.model.GroupedItems;
@@ -34,25 +35,24 @@ public class ClientAppController {
     }
     
     //clientAppUserId=100&itemsIds[0]=1&itemsIds[1]=2&itemsIds[2]=3
-    @Post("app/addSale")
+    @ValidAccessKey(paramName="accessKey")
+    @Post("app/addSale") 
     public void addSale(String accessKey, Long clientAppUserId, List<Long> itemsIds) {
-        if (validKey(accessKey)) {
-            ClientApp app = appDao.findByAccessKey(accessKey);
-            GroupedItems groupedItems = itemDao.findItems(itemsIds, app);
-            
-            ArrayList<Item> newItems = groupedItems.addRemaining(itemsIds, app);
-            for (Item item : newItems)
-                itemDao.save(item);
-            
-            Customer customer = customerDao.find(app, clientAppUserId);
-            if (customer == null)
-                customer = new Customer(new ArrayList<Item>(), clientAppUserId, app);
-            for (Item item : groupedItems.getItems())
-                customer.add(item);
-            customerDao.save(customer);
-                    
-            result.use(Results.json()).from(true).serialize();
-        }
+        ClientApp app = appDao.findByAccessKey(accessKey);
+        GroupedItems groupedItems = itemDao.findItems(itemsIds, app);
+        
+        ArrayList<Item> newItems = groupedItems.addRemaining(itemsIds, app);
+        for (Item item : newItems)
+            itemDao.save(item);
+        
+        Customer customer = customerDao.find(app, clientAppUserId);
+        if (customer == null)
+            customer = new Customer(new ArrayList<Item>(), clientAppUserId, app);
+        for (Item item : groupedItems.getItems())
+            customer.add(item);
+        customerDao.save(customer);
+                
+        result.use(Results.json()).from(true).serialize();
     }
     
     @Get("app/new")
@@ -65,15 +65,6 @@ public class ClientAppController {
         accessKey = DigestUtils.sha256Hex(accessKey);
         appDao.save(new ClientApp(name, accessKey));
         result.include("key", accessKey);
-    }
-    
-    private boolean validKey(String accessKey) {
-        ClientApp app = appDao.findByAccessKey(accessKey);
-        if (app == null) {
-            result.notFound();
-            return false;
-        }
-        return true;
     }
 
 }
