@@ -34,6 +34,7 @@ public class SingleAppRecommender implements Recommender {
         return associations.get(item);
     }
 
+    @Override
     public ItemVector recommendedItemsFor(List<Item> items) {
         ItemVector vector = new ItemVector(new ArrayList<Tuple>());
         for (Item item : items) {

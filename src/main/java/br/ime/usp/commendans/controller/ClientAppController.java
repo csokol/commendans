@@ -63,7 +63,7 @@ public class ClientAppController {
     
     @Post("app/new")
     public void saveApp(String name) {
-        String accessKey = "123" + name;
+        String accessKey = "askjdaklsjdlkadsjqpoipoweut" + name;
         accessKey = DigestUtils.sha256Hex(accessKey);
         appDao.save(new ClientApp(name, accessKey));
         result.include("key", accessKey);

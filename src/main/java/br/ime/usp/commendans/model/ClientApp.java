@@ -8,8 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 
+import br.ime.usp.commendans.recommender.Recommender;
 import br.ime.usp.commendans.recommender.itemtoitem.ItemVector;
-import br.ime.usp.commendans.recommender.itemtoitem.SingleAppRecommender;
 
 @Entity
 public class ClientApp {
@@ -24,7 +24,7 @@ public class ClientApp {
     private String accessKey;
 
     @Transient
-    private SingleAppRecommender recommender;
+    private Recommender recommender;
 
     @Deprecated
     protected ClientApp() {
@@ -39,7 +39,7 @@ public class ClientApp {
         return name;
     }
 
-    public void use(SingleAppRecommender recommender) {
+    public void use(Recommender recommender) {
         this.recommender = recommender;
     }
 

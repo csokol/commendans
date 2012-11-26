@@ -44,7 +44,7 @@ public class DataImporter {
         String line = safeReadLine(reader);
         
         String name = "Casa do Código";
-        String accessKey = "123" + name;
+        String accessKey = "askjdaklsjdlkadsjqpoipoweut" + name;
         accessKey = DigestUtils.sha256Hex(accessKey);
         
         ClientApp cdc = new ClientApp("Casa do Código", accessKey);
