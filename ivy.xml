@@ -33,10 +33,11 @@
 
 		<!-- commendans dependencies -->
 		<dependency org="com.google.code.gson" name="gson" rev="2.2.2"/>
-		<dependency org="com.google.code.gson" name="gson" rev="2.2.2"/>
 		
 		<dependency org="org.eclipse.jetty" name="jetty-webapp" rev="7.4.4.v20110707"/>
 		<dependency org="org.mortbay.jetty" name="jsp-2.1-glassfish" rev="2.1.v20100127" />
+		<dependency org="commons-codec" name="commons-codec" rev="1.7"/>
+            
 		
 		<!-- Test dependencies -->
 		<dependency org="junit" name="junit" rev="4.8.2" conf="test->default" />

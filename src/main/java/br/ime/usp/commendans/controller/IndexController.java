@@ -1,5 +1,6 @@
 package br.ime.usp.commendans.controller;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.hibernate.Session;
 
 import br.com.caelum.vraptor.Get;
@@ -33,6 +34,9 @@ public class IndexController {
         DataImporter dataImporter = new DataImporter(session);
         dataImporter.importData("/orders.csv");
         recommenderCreator.create();
-        result.use(Results.http()).body("<html><body>finished persisting</body></html>");
+        String name = "Casa do Código";
+        String accessKey = "123" + name;
+        accessKey = DigestUtils.sha256Hex(accessKey);
+        result.use(Results.http()).body("<html><body>finished persisting, key: "+accessKey+"</body></html>");
     }
 }

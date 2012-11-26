@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -41,7 +42,12 @@ public class DataImporter {
         InputStream resourceAsStream = getClass().getResourceAsStream(file);
         BufferedReader reader = new BufferedReader(new InputStreamReader(resourceAsStream));
         String line = safeReadLine(reader);
-        ClientApp cdc = new ClientApp("Casa do Código", "123");
+        
+        String name = "Casa do Código";
+        String accessKey = "123" + name;
+        accessKey = DigestUtils.sha256Hex(accessKey);
+        
+        ClientApp cdc = new ClientApp("Casa do Código", accessKey);
         session.save(cdc);
         
         while (line != null) {

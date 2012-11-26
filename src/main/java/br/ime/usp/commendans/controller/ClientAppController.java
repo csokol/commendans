@@ -3,6 +3,8 @@ package br.ime.usp.commendans.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
@@ -62,6 +64,7 @@ public class ClientAppController {
     @Post("app/new")
     public void saveApp(String name) {
         String accessKey = "123" + name;
+        accessKey = DigestUtils.sha256Hex(accessKey);
         appDao.save(new ClientApp(name, accessKey));
         result.include("key", accessKey);
     }
