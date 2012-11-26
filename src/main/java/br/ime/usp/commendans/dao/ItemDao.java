@@ -6,7 +6,8 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import br.com.caelum.vraptor.ioc.Component;
-import br.ime.usp.commendans.model.Application;
+import br.ime.usp.commendans.model.ClientApp;
+import br.ime.usp.commendans.model.GroupedItems;
 import br.ime.usp.commendans.model.Item;
 
 @Component
@@ -18,7 +19,7 @@ public class ItemDao {
         this.session = session;
     }
 
-    public Item findByAppItemId(Long appItemId, Application app) {
+    public Item findByAppItemId(Long appItemId, ClientApp app) {
         Query query = session.createQuery("select item from Item item where item.appItemId = :id and item.app.id = :appId");
         query.setLong("id", appItemId);
         query.setLong("appId", app.getId());
@@ -26,12 +27,17 @@ public class ItemDao {
     }
 
     @SuppressWarnings("unchecked")
-    public List<Item> findAppItemIds(List<Long> itemsIds, Application app) {
-        return session
+    public GroupedItems findItems(List<Long> itemsIds, ClientApp app) {
+        List<Item> items = session
                 .createQuery("select item from Item item where item.appItemId in :ids and item.app.id = :appId")
                 .setParameterList("ids", itemsIds)
                 .setParameter("appId", app.getId())
                 .list();
+        return new GroupedItems(items);
+    }
+
+    public void save(Item item) {
+        session.save(item);
     }
 
 }

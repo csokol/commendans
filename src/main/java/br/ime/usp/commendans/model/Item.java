@@ -13,13 +13,13 @@ public class Item {
     private Long appItemId;
     
     @ManyToOne
-    private Application app;
+    private ClientApp app;
 
     @Deprecated
     protected Item() {
     }
     
-    public Item(Long appItemId, Application app) {
+    public Item(Long appItemId, ClientApp app) {
         this.appItemId = appItemId;
         this.app = app;
     }
@@ -28,7 +28,7 @@ public class Item {
         return appItemId;
     }
     
-    public Application getApp() {
+    public ClientApp getApp() {
         return app;
     }
     

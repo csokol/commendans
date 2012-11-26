@@ -15,7 +15,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import br.ime.usp.commendans.model.Application;
+import br.ime.usp.commendans.model.ClientApp;
 import br.ime.usp.commendans.model.Customer;
 import br.ime.usp.commendans.model.Item;
 
@@ -41,7 +41,7 @@ public class DataImporter {
         InputStream resourceAsStream = getClass().getResourceAsStream(file);
         BufferedReader reader = new BufferedReader(new InputStreamReader(resourceAsStream));
         String line = safeReadLine(reader);
-        Application cdc = new Application("Casa do Código", "123");
+        ClientApp cdc = new ClientApp("Casa do Código", "123");
         session.save(cdc);
         
         while (line != null) {

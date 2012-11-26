@@ -7,10 +7,10 @@ import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.view.Results;
-import br.ime.usp.commendans.dao.ApplicationDao;
+import br.ime.usp.commendans.dao.ClientAppDao;
 import br.ime.usp.commendans.dao.ItemDao;
 import br.ime.usp.commendans.infra.TupleJsonSerializer;
-import br.ime.usp.commendans.model.Application;
+import br.ime.usp.commendans.model.ClientApp;
 import br.ime.usp.commendans.model.Item;
 import br.ime.usp.commendans.recommender.GeneralRecommender;
 import br.ime.usp.commendans.recommender.itemtoitem.ItemVector;
@@ -22,10 +22,10 @@ public class ItemToItemController {
     private final Result result;
     private final TupleJsonSerializer serializer;
     private final GeneralRecommender recommender;
-    private final ApplicationDao appDao;
+    private final ClientAppDao appDao;
 
     public ItemToItemController(GeneralRecommender recommender, 
-            ItemDao itemDao, ApplicationDao appDao, Result result, 
+            ItemDao itemDao, ClientAppDao appDao, Result result, 
             TupleJsonSerializer serializer) {
         this.recommender = recommender;
         this.itemDao = itemDao;
@@ -37,7 +37,7 @@ public class ItemToItemController {
     @Get("/recommend/item/{appItemId}")
     public void recommend(Long appItemId, String accessKey) {
         if (validKey(accessKey)) {
-            Application app = appDao.findByAccessKey(accessKey);
+            ClientApp app = appDao.findByAccessKey(accessKey);
             Item item = itemDao.findByAppItemId(appItemId, app);
             ItemVector recommended = recommender.recommendedItemsFor(item, accessKey);
             serializeResult(recommended);
@@ -48,15 +48,15 @@ public class ItemToItemController {
     @Get("/recommend/items/")
     public void recommend(List<Long> itemsIds, String accessKey) {
         if (validKey(accessKey)) {
-            Application app = appDao.findByAccessKey(accessKey);
-            List<Item> items = itemDao.findAppItemIds(itemsIds, app);
+            ClientApp app = appDao.findByAccessKey(accessKey);
+            List<Item> items = itemDao.findItems(itemsIds, app).getItems();
             ItemVector recommended = recommender.recommendedItemsFor(items, accessKey);
             serializeResult(recommended);
         }
     }
 
     private boolean validKey(String accessKey) {
-        Application app = appDao.findByAccessKey(accessKey);
+        ClientApp app = appDao.findByAccessKey(accessKey);
         if (app == null) {
             result.notFound();
             return false;

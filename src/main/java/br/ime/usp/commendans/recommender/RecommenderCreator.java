@@ -10,9 +10,9 @@ import org.hibernate.SessionFactory;
 import br.com.caelum.vraptor.ioc.ApplicationScoped;
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.ioc.ComponentFactory;
-import br.ime.usp.commendans.dao.ApplicationDao;
+import br.ime.usp.commendans.dao.ClientAppDao;
 import br.ime.usp.commendans.dao.CustomerDao;
-import br.ime.usp.commendans.model.Application;
+import br.ime.usp.commendans.model.ClientApp;
 import br.ime.usp.commendans.model.Customer;
 import br.ime.usp.commendans.recommender.itemtoitem.SingleAppRecommender;
 import br.ime.usp.commendans.recommender.itemtoitem.SingleAppRecommenderFactory;
@@ -22,12 +22,12 @@ public class RecommenderCreator implements ComponentFactory<GeneralRecommender> 
     private final CustomerDao customerDao;
     private final SingleAppRecommenderFactory factory;
     private GeneralRecommender recommender;
-    private final ApplicationDao appDao;
+    private final ClientAppDao appDao;
 
     public RecommenderCreator(SingleAppRecommenderFactory factory, SessionFactory sf) {
         Session session = sf.openSession();
         this.customerDao = new CustomerDao(session);
-        this.appDao = new ApplicationDao(session);
+        this.appDao = new ClientAppDao(session);
         this.factory = factory;
     }
 
@@ -38,8 +38,8 @@ public class RecommenderCreator implements ComponentFactory<GeneralRecommender> 
     
     @PostConstruct
     public void create() {
-        List<Application> apps = appDao.list();
-        for (Application app : apps) {
+        List<ClientApp> apps = appDao.list();
+        for (ClientApp app : apps) {
             List<Customer> customers = customerDao.findCustomersOf(app);
             SingleAppRecommender recommender = buildSingleAppRecommender(customers);
             app.use(recommender);

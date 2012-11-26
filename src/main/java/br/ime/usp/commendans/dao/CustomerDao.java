@@ -7,7 +7,7 @@ import org.hibernate.Session;
 
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.ioc.PrototypeScoped;
-import br.ime.usp.commendans.model.Application;
+import br.ime.usp.commendans.model.ClientApp;
 import br.ime.usp.commendans.model.Customer;
 
 @Component @PrototypeScoped
@@ -24,11 +24,24 @@ public class CustomerDao {
     }
 
     @SuppressWarnings("unchecked")
-    public List<Customer> findCustomersOf(Application app) {
+    public List<Customer> findCustomersOf(ClientApp app) {
         Query query = session.createQuery("select customer from Customer customer " +
         		"join fetch customer.items " +
         		"where customer.app.name like :appName");
         query.setParameter("appName", app.getName());
         return query.list();
+    }
+
+    public void save(Customer customer) {
+        session.saveOrUpdate(customer);
+    }
+
+    public Customer find(ClientApp app, Long customerId) {
+        Query query = session.createQuery("select customer from Customer customer " +
+                "where customer.app.id like :appId " +
+                "and customer.clientAppCustomerId = :customerId");
+        query.setParameter("appId", app.getId());
+        query.setParameter("customerId", customerId);
+        return (Customer) query.uniqueResult();
     }
 }

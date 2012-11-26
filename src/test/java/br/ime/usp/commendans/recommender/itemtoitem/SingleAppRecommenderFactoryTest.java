@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import br.ime.usp.commendans.model.Application;
+import br.ime.usp.commendans.model.ClientApp;
 import br.ime.usp.commendans.model.Customer;
 import br.ime.usp.commendans.model.Item;
 import br.ime.usp.commendans.recommender.itemtoitem.ItemToItemsAssociation;
@@ -21,7 +21,7 @@ public class SingleAppRecommenderFactoryTest {
     @Test
     public void shouldBuildRecommenderFromCollectiveIntelligenceInActionExample() {
         SingleAppRecommenderFactory factory = new SingleAppRecommenderFactory();
-        Application cdc = new Application("casadocodigo", "1234");
+        ClientApp cdc = new ClientApp("casadocodigo", "1234");
         Item item1 = new Item(1l, cdc);
         Item item2 = new Item(2l, cdc);
         Item item3 = new Item(3l, cdc);

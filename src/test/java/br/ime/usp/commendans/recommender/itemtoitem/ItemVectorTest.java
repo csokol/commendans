@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import br.ime.usp.commendans.model.Application;
+import br.ime.usp.commendans.model.ClientApp;
 import br.ime.usp.commendans.model.Item;
 import br.ime.usp.commendans.recommender.itemtoitem.ItemVector;
 import br.ime.usp.commendans.recommender.itemtoitem.Tuple;
@@ -17,7 +17,7 @@ public class ItemVectorTest {
 
     @Test
     public void shouldMergeTuples() {
-        Application cdc = new Application("Casa do Código", "123");
+        ClientApp cdc = new ClientApp("Casa do Código", "123");
         Item item1 = new Item(1l, cdc);
         Item item2 = new Item(2l, cdc);
         Item item3 = new Item(3l, cdc);

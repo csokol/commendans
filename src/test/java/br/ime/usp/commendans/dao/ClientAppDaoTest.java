@@ -8,14 +8,14 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.ime.usp.commendans.model.Application;
+import br.ime.usp.commendans.model.ClientApp;
 
-public class ApplicationDaoTest extends DaoTest {
-    private static ApplicationDao applicationDao;
+public class ClientAppDaoTest extends DaoTest {
+    private static ClientAppDao applicationDao;
 
     @Before
     public void setUp() {
-        applicationDao = new ApplicationDao(session);
+        applicationDao = new ClientAppDao(session);
         session.beginTransaction();
     }
     
@@ -27,17 +27,17 @@ public class ApplicationDaoTest extends DaoTest {
     
     @Test
     public void shouldListApps() throws Exception {
-        session.save(new Application("cdc", "123"));
-        session.save(new Application("caelum", "1234"));
-        List<Application> apps = applicationDao.list();
+        session.save(new ClientApp("cdc", "123"));
+        session.save(new ClientApp("caelum", "1234"));
+        List<ClientApp> apps = applicationDao.list();
         assertEquals(2, apps.size());
     }
     
     @Test
     public void shouldFindAppByAccessKey() throws Exception {
-        session.save(new Application("cdc", "123"));
-        session.save(new Application("caelum", "1234"));
-        Application app = applicationDao.findByAccessKey("1234");
+        session.save(new ClientApp("cdc", "123"));
+        session.save(new ClientApp("caelum", "1234"));
+        ClientApp app = applicationDao.findByAccessKey("1234");
         assertEquals("caelum", app.getName());
     }
 

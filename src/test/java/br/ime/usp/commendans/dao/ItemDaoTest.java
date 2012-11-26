@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.ime.usp.commendans.model.Application;
+import br.ime.usp.commendans.model.ClientApp;
 import br.ime.usp.commendans.model.Item;
 
 public class ItemDaoTest extends DaoTest {
@@ -27,8 +27,8 @@ public class ItemDaoTest extends DaoTest {
     
     @Test
     public void shouldFindByAppItemId() throws Exception {
-        Application app = new Application("cdc", "123");
-        Application app2 = new Application("caelum", "1234");
+        ClientApp app = new ClientApp("cdc", "123");
+        ClientApp app2 = new ClientApp("caelum", "1234");
         session.save(app);
         session.save(app2);
         session.save(new Item(11l, app));

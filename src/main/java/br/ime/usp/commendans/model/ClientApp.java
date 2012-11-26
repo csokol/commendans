@@ -11,7 +11,7 @@ import br.ime.usp.commendans.recommender.itemtoitem.ItemVector;
 import br.ime.usp.commendans.recommender.itemtoitem.SingleAppRecommender;
 
 @Entity
-public class Application {
+public class ClientApp {
 
 
     @Id
@@ -26,10 +26,10 @@ public class Application {
     private SingleAppRecommender recommender;
 
     @Deprecated
-    protected Application() {
+    protected ClientApp() {
     }
 
-    public Application(String name, String accessKey) {
+    public ClientApp(String name, String accessKey) {
         this.name = name;
         this.accessKey = accessKey;
     }
@@ -79,7 +79,7 @@ public class Application {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Application other = (Application) obj;
+        ClientApp other = (ClientApp) obj;
         if (id == null) {
             if (other.id != null)
                 return false;

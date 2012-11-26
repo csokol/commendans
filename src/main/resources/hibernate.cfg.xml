@@ -24,7 +24,7 @@
 
         <mapping class="br.ime.usp.commendans.model.Item" />
         <mapping class="br.ime.usp.commendans.model.Customer" />
-        <mapping class="br.ime.usp.commendans.model.Application" />
+        <mapping class="br.ime.usp.commendans.model.ClientApp" />
 
     </session-factory>
 </hibernate-configuration>

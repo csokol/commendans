@@ -14,21 +14,21 @@ public class Customer {
     @Id @GeneratedValue
     private Long id;
     
-    private Long appId;
+    private Long clientAppCustomerId;
 
-    @ManyToMany()
+    @ManyToMany
     private List<Item> items;
     
     @ManyToOne
-    private Application app;
+    private ClientApp app;
     
     @Deprecated
     public Customer() {
     }
 
-    public Customer(List<Item> items, Long appId, Application app) {
+    public Customer(List<Item> items, Long clientAppCustomerId, ClientApp app) {
         this.items = items;
-        this.appId = appId;
+        this.clientAppCustomerId = clientAppCustomerId;
         this.app = app;
     }
 
@@ -38,15 +38,19 @@ public class Customer {
     
     @Override
     public String toString() {
-        return "User " + appId + " from " + app;
+        return "User " + clientAppCustomerId + " from " + app;
     }
 
     public void add(Item item) {
         items.add(item);
     }
     
-    public Application getApp() {
+    public ClientApp getApp() {
         return app;
+    }
+    
+    public Long getClientAppCustomerId() {
+        return clientAppCustomerId;
     }
     
 }
