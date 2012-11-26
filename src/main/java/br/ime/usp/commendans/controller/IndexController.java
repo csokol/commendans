@@ -24,7 +24,7 @@ public class IndexController {
         this.recommenderCreator = recommenderCreator;
     }
     
-    @Get("/")
+    @Get("/helloworld")
     public void index() {
         result.use(Results.http()).body("<html><body><h1>hello world</h1</body></html>");
     }
