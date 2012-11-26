@@ -26,7 +26,6 @@ public class CustomerDao {
     @SuppressWarnings("unchecked")
     public List<Customer> findCustomersOf(ClientApp app) {
         Query query = session.createQuery("select customer from Customer customer " +
-        		"join fetch customer.items " +
         		"where customer.app.name like :appName");
         query.setParameter("appName", app.getName());
         return query.list();

@@ -3,6 +3,7 @@ package br.ime.usp.commendans.model;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -16,7 +17,7 @@ public class Customer {
     
     private Long clientAppCustomerId;
 
-    @ManyToMany
+    @ManyToMany(fetch=FetchType.EAGER)
     private List<Item> items;
     
     @ManyToOne
