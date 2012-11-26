@@ -37,7 +37,7 @@ public class CustomerDao {
 
     public Customer find(ClientApp app, Long customerId) {
         Query query = session.createQuery("select customer from Customer customer " +
-                "where customer.app.id like :appId " +
+                "where customer.app.id = :appId " +
                 "and customer.clientAppCustomerId = :customerId");
         query.setParameter("appId", app.getId());
         query.setParameter("customerId", customerId);
