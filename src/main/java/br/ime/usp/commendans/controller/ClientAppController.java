@@ -40,20 +40,16 @@ public class ClientAppController {
         GroupedItems groupedItems = itemDao.findItems(itemsIds, app);
         
         ArrayList<Item> newItems = groupedItems.addRemaining(itemsIds, app);
-        
-        for (Item item : newItems) {
+        for (Item item : newItems)
             itemDao.save(item);
-        }
         
         Customer customer = customerDao.find(app, clientAppUserId);
-        List<Item> allItems = groupedItems.getItems();
-        if (customer == null) {
+        if (customer == null)
             customer = new Customer(new ArrayList<Item>(), clientAppUserId, app);
-        }
-        for (Item item : allItems) {
+        for (Item item : groupedItems.getItems())
             customer.add(item);
-        }
         customerDao.save(customer);
+                
         result.use(Results.json()).from(true).serialize();
     }
     

@@ -47,7 +47,6 @@ public class ItemToItemController {
         }
     }
     
-
     @Get("/recommend/items/")
     public void recommend(List<Long> itemsIds, String accessKey) {
         if (validKey(accessKey)) {
