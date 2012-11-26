@@ -33,7 +33,7 @@ public class CustomerDao {
     }
 
     public void save(Customer customer) {
-        session.saveOrUpdate(customer);
+        session.save(customer);
     }
 
     public Customer find(ClientApp app, Long customerId) {

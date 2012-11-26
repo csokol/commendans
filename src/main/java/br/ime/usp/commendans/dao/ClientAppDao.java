@@ -28,5 +28,17 @@ public class ClientAppDao {
         return (ClientApp) query.uniqueResult();
     }
 
+    public void save(ClientApp clientApp) {
+        session.save(clientApp);
+    }
+
+    public void commit() {
+        session.getTransaction().commit();
+    }
+
+    public void beginTransaction() {
+        session.beginTransaction();
+    }
+
 
 }

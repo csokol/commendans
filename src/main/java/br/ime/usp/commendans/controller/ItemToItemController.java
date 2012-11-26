@@ -13,6 +13,7 @@ import br.ime.usp.commendans.infra.TupleJsonSerializer;
 import br.ime.usp.commendans.model.ClientApp;
 import br.ime.usp.commendans.model.Item;
 import br.ime.usp.commendans.recommender.GeneralRecommender;
+import br.ime.usp.commendans.recommender.RecommenderCreator;
 import br.ime.usp.commendans.recommender.itemtoitem.ItemVector;
 import br.ime.usp.commendans.recommender.itemtoitem.Tuple;
 
@@ -23,15 +24,17 @@ public class ItemToItemController {
     private final TupleJsonSerializer serializer;
     private final GeneralRecommender recommender;
     private final ClientAppDao appDao;
+    private final RecommenderCreator recommenderCreator;
 
     public ItemToItemController(GeneralRecommender recommender, 
             ItemDao itemDao, ClientAppDao appDao, Result result, 
-            TupleJsonSerializer serializer) {
+            TupleJsonSerializer serializer, RecommenderCreator recommenderCreator) {
         this.recommender = recommender;
         this.itemDao = itemDao;
         this.appDao = appDao;
         this.result = result;
         this.serializer = serializer;
+        this.recommenderCreator = recommenderCreator;
     }
     
     @Get("/recommend/item/{appItemId}")
@@ -53,6 +56,12 @@ public class ItemToItemController {
             ItemVector recommended = recommender.recommendedItemsFor(items, accessKey);
             serializeResult(recommended);
         }
+    }
+    
+    @Get("/recalculate/")
+    public void recalculate() {
+        recommenderCreator.create();
+        result.use(Results.http()).body("ok");
     }
 
     private boolean validKey(String accessKey) {

@@ -3,6 +3,7 @@ package br.ime.usp.commendans.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
@@ -52,6 +53,17 @@ public class ClientAppController {
         }
         customerDao.save(customer);
         result.use(Results.json()).from(true).serialize();
+    }
+    
+    @Get("app/new")
+    public void clientAppForm() {
+    }
+    
+    @Post("app/new")
+    public void saveApp(String name) {
+        String accessKey = "123" + name;
+        appDao.save(new ClientApp(name, accessKey));
+        result.include("key", accessKey);
     }
 
 }
