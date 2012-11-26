@@ -64,7 +64,6 @@ public class DataImporter {
         }
         
         logger.debug("persisting");
-        session.getTransaction().begin();
         for (Item item : items.values()) {
             session.save(item);
         }
@@ -73,7 +72,6 @@ public class DataImporter {
         for (Customer user : allUsers) {
             session.save(user);
         }
-        session.getTransaction().commit();
         logger.debug("finished persisting");
     }
 
