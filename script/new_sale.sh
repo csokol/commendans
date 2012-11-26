@@ -1,1 +1,1 @@
-curl --data "clientAppUserId=66666666&itemsIds[0]=1&itemsIds[1]=2&itemsIds[2]=3" http://localhost:8080/commendans/app/123/addSale
+curl --data "clientAppUserId=66666666&itemsIds[0]=1&itemsIds[1]=2&itemsIds[2]=3&accessKey=04775f2e51279e3fbab3ed1527c364df1b919ce98f4c86ba1bb2db94058b8c6a" http://localhost:8080/commendans/app/addSale
