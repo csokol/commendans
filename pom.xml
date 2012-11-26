@@ -216,22 +216,16 @@
 			<version>2.1.v20100127</version>
 		</dependency>
 		<dependency>
+			<groupId>org.mortbay.jetty</groupId>
+			<artifactId>jsp-api-2.1</artifactId>
+			<version>7.0.0pre2</version>
+		</dependency>
+		            
+		<dependency>
 			<groupId>postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>9.1-901.jdbc4</version>
 		</dependency>
-		<dependency>
-			<groupId>org.glassfish.web</groupId>
-			<artifactId>jstl-impl</artifactId>
-			<version>1.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish.web</groupId>
-			<artifactId>el</artifactId>
-			<version>2.2.1-b03</version>
-		</dependency>
-		            
-		            
             
 		<!-- Provided dependencies -->
 	</dependencies>
